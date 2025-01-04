@@ -11,8 +11,8 @@
   <div id="root"></div>
 
   <!-- React依賴 -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
   <!-- 編寫React程式碼 -->
@@ -28,6 +28,11 @@
       // 2.1. 修改文本
       message = 'Hello, React!';
       // 2.2. 重新渲染
+      rootRender();
+    }
+
+    // 3. 渲染函數封裝
+    function rootRender(){
       root.render((
         <div>
           <h1>{message}</h1>
@@ -36,12 +41,7 @@
       ));
     }
 
-    root.render((
-      <div>
-        <h1>{message}</h1>
-        <button onClick={changeText}>Click To Change Text</button>
-      </div>
-    ));
+    rootRender();
   </script>
   
 </body>
