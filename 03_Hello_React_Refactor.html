@@ -43,25 +43,47 @@
       // 組件數據
       constructor(){
         super();
-        
+
         // 參與數據更新的資料必須放在組件的state對象中
         this.state = {
           message: 'Hello, World!'
         }
+
+        // 對需要綁定this的方法, 提前綁定好this
+        this.changeText = this.changeText.bind(this);
       }
 
-      // 組件方法
+      // 組件方法（實例方法）
+      changeText(){
+        console.log('changeText',this);
+
+        // setState()內部做了兩件事情：1. 修改state資料 2. 自動重新執行render方法
+        this.setState({
+          message: 'Hello, React!'
+        })
+      }
 
       // 組件渲染內容：render方法
       render(){
+        console.log("render",this);
         return (
           <div>
             <h1>{this.state.message}</h1>
-            <button>Click To Change Text</button>
+            <button onClick={this.changeText}>Click To Change Text</button>
           </div>
         )
       }
     }
+
+    // const app = new App();
+    // const foo = app.changeText;
+    // foo(); // 默認綁定: this = window; 嚴格模式下: this = undefined
+    // ES6的class中的方法默認是嚴格模式的
+
+    // function bar(){
+    //   console.log(this);
+    // }
+    // bar(); // 因為這邊使用Babel, Babel轉譯後會是嚴格模式: "use strict"; this = undefined
 
     // 1.2. 函數組件 (Function Component)
 
