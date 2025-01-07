@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React</title>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <!-- React依賴改由本地引入 -->
+  <script src="/lib/react.development.js"></script>
+  <script src="/lib/react-dom.development.js"></script>
+  <script src="/lib/babel.js"></script>
+
+  <script type="text/babel">
+    // let message = 'Hello, World!';
+    // const root = ReactDOM.createRoot(document.getElementById('root'));
+
+    // function changeText(){
+    //   console.log("changeText");
+    //   message = 'Hello, React!';
+    //   rootRender();
+    // }
+
+    // function rootRender(){
+    //   console.log("rootRender");
+    //   root.render((
+    //     <div>
+    //       <h1>{message}</h1>
+    //       <button onClick={changeText}>Click To Change Text</button>
+    //     </div>
+    //   ));
+    // }
+    
+    // rootRender();
+
+
+    // 1. 使用組件進行重構程式碼
+    // 1.1. 類組件 (Class Component)
+    class App extends React.Component {
+      // 組件數據
+      constructor(){
+        super();
+        
+        // 參與數據更新的資料必須放在組件的state對象中
+        this.state = {
+          message: 'Hello, World!'
+        }
+      }
+
+      // 組件方法
+
+      // 組件渲染內容：render方法
+      render(){
+        return (
+          <div>
+            <h1>{this.state.message}</h1>
+            <button>Click To Change Text</button>
+          </div>
+        )
+      }
+    }
+
+    // 1.2. 函數組件 (Function Component)
+
+    // 2. 將組件渲染到介面上
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
