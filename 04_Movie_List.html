@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie List</title>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <!-- React依賴改由本地引入 -->
+  <script src="/lib/react.development.js"></script>
+  <script src="/lib/react-dom.development.js"></script>
+  <script src="/lib/babel.js"></script>
+
+  <script type="text/babel">
+
+    // 1. 創建root
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+
+    // 2. 封裝List組件
+    class List extends React.Component {
+      constructor() {
+        super()
+
+        this.state = {
+          movies: ["蜘蛛人", "蝙蝠俠", "鋼鐵人"]
+        }
+      }
+
+      render() {
+
+        // * 使用傳統循環
+        // const list = [];
+        // for (let i = 0; i < this.state.movies.length; i++) {
+        //   const movie = this.state.movies[i];
+        //   const liElement = <li>{movie}</li>
+        //   list.push(liElement);
+        // }
+        
+        // return (
+        //   <div>
+        //     <h1>電影列表</h1>
+        //     <ul>
+        //       {list}
+        //     </ul>
+        //   </div>
+        // )
+
+        return (
+
+          // * 直接取用資料，這種寫法不推薦
+          // <div>
+          //   <h1>電影列表</h1>
+          //   <ul>
+          //     <li>{this.state.movies[0]}</li>
+          //     <li>{this.state.movies[1]}</li>
+          //     <li>{this.state.movies[2]}</li>
+          //   </ul>
+          // </div>
+
+          // * 使用map方法，動態生成li
+          // <div> 
+          //   <h1>電影列表</h1>
+          //   <ul>
+          //     {
+          //       this.state.movies.map((movie)=>{
+          //         return <li>{movie}</li>
+          //       })
+          //     }
+          //   </ul>
+          // </div>
+
+          // * 使用map方法，動態生成li，以單行形式書寫，並加上key
+          <div>
+            <h1>電影列表</h1>
+            <ul>
+              {this.state.movies.map((movie, index)=>(<li key={index}>{movie}</li>))}
+            </ul>
+          </div>
+        )
+      }
+    }
+
+    root.render(<List />);
+  </script>
+</body>
+</html>
