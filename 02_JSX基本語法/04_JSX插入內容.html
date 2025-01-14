@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSX</title>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script src="/lib/react.development.js"></script>
+  <script src="/lib/react-dom.development.js"></script>
+  <script src="/lib/babel.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建根組件
+    class App extends React.Component {
+      constructor() {
+        super()
+
+        this.state = {
+          counter: 10,
+          message: 'React JSX',
+          names: ['ana', 'bob'],
+
+          aa: undefined,
+          bb: null,
+          cc: true,
+
+          friend: {
+            name: "Leo"
+          }
+        }
+      }
+
+      render() {
+        const { counter, message, names } = this.state
+        const { aa, bb, cc } = this.state
+        const { friend } = this.state
+
+        return (
+          <div>
+            { /* Number/String/Array可以直接顯示 */ }
+            <h2>{ counter }</h2>
+            <h2>{ message }</h2>
+            <h2>{ names }</h2>
+
+            { /* 2. undefined/null/Boolean不顯示內容 */}
+            <h2>{ String(aa) }</h2>
+            <h2>{ String(bb) }</h2>
+            <h2>{ cc.toString() }</h2>
+
+            { /* 3. Object類型不能直接當作子元素來顯示 */}
+            { /* 需要抓取需要的資料，再做顯示 */}
+            <h2>{ friend.name }</h2>
+
+            { /* 4. 表達式*/ }
+            <h2>{ 20 + 30 }</h2>
+
+            { /* 5. 函數調用*/}
+          </div>
+        )
+      }
+    }
+
+    // 2. 創建root並且渲染根組件
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />)
+  </script>
+</body>
+
+</html>
