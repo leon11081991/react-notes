@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSX</title>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script src="/lib/react.development.js"></script>
+  <script src="/lib/react-dom.development.js"></script>
+  <script src="/lib/babel.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建根組件
+    class App extends React.Component {
+      constructor() {
+        super()
+
+        this.state = {
+          message: 'React JSX'
+        }
+      }
+
+      render() {
+        
+        return (
+          <div>
+            { /* JSX 的註釋寫法 */}
+            { /* 如果使用單行註釋會被錯 */ }
+            <h2>{this.state.message}</h2>
+          </div>
+        )
+      }
+    }
+
+    // 2. 創建root並且渲染根組件
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />)
+  </script>
+</body>
+
+</html>
