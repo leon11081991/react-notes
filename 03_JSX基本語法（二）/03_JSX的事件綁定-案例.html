@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSX</title>
+  <style>
+    .active {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script src="/lib/react.development.js"></script>
+  <script src="/lib/react-dom.development.js"></script>
+  <script src="/lib/babel.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建根組件
+    class App extends React.Component {
+      constructor() {
+        super()
+
+        this.state = {
+          movies: ['鬼滅之刃無限城', '音速小子', '哈利波特'],
+          currentIndex: 0 // 繼續當前選擇狀態
+        }
+      }
+
+      itemClick= (index) => {
+        console.log("itemClick: ", this, index);
+        this.setState({
+          currentIndex : index
+        })
+      }
+
+      render() {
+        const { movies, currentIndex } = this.state
+
+        return (
+          <div>
+            <ul>
+              {
+                movies.map( (item, index) => {
+                  return (
+                    <li 
+                      key={ item } 
+                      className={index === currentIndex? 'active': ''}
+                      onClick={()=> this.itemClick(index)}
+                    >
+                      { item }
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
+        )
+      }
+    }
+
+    // 2. 創建root並且渲染根組件
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />)
+  </script>
+</body>
+
+</html>
