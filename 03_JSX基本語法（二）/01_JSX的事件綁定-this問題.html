@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSX</title>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script src="/lib/react.development.js"></script>
+  <script src="/lib/react-dom.development.js"></script>
+  <script src="/lib/babel.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建根組件
+
+    class App extends React.Component {
+      constructor() {
+        super()
+
+        this.state = {
+          counter: 100
+        }
+
+        { /* 1. this 綁定方法一：bind綁定 */ }
+        this.btnClick = this.btnClick.bind(this)
+      }
+
+      btnClick(){
+        console.log("btnClick: ", this);
+        this.setState({
+          counter: this.state.counter + 1
+        })
+      }
+
+      btn2Click = () => {
+        { /* 2. this 綁定方法一：class fields 綁定 */ }
+        console.log("btn2Click: ", this);
+        this.setState({
+          counter: this.state.counter - 1
+        })
+      }
+
+      btn3Click(){
+        console.log("btn3Click: ", this);
+        this.setState({
+          counter: 0
+        })
+      }
+
+      render() {
+        const { counter } = this.state
+
+        return (
+          <div>
+            { /* 1. this 綁定方法一：bind綁定 */ }
+            <button onClick={this.btnClick}>按鈕</button>
+            { /* 2. this 綁定方法二：class fields 綁定 */}
+            <button onClick={this.btn2Click}>按鈕2</button>
+            { /* 3. this 綁定方法三： 直接傳入一個箭頭函數 */}
+            <button onClick={()=>this.btn3Click()}>按鈕3</button>
+            <p>當前計數：{ counter }</p>
+          </div>
+        )
+      }
+    }
+
+    // 2. 創建root並且渲染根組件
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />)
+  </script>
+</body>
+
+</html>
