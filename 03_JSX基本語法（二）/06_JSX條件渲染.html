@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSX</title>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script src="/lib/react.development.js"></script>
+  <script src="/lib/react-dom.development.js"></script>
+  <script src="/lib/babel.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建根組件
+    class App extends React.Component {
+      constructor() {
+        super()
+
+        this.state = {
+          message: 'React JSX',
+
+          isReady: false,
+
+          friend: {
+            name: "Leo",
+            age: 30
+          }
+        }
+      }
+
+      render() {
+        const { isReady, friend } = this.state
+
+        // 1. 條件判斷式方法一：使用if判斷
+        // if(isReady){
+        //   return (
+        //     <div>
+        //       <h2>準備好了！</h2>
+        //     </div>
+        //   )
+        // }
+
+        // return (
+        //   <div>
+        //     <h2>等待中</h2>
+        //   </div>
+        // )
+
+        // 2. 條件判斷式方法二：三元運算符
+        // return (
+        //   <div>{ isReady ? '準備好了！': '等待中'}</div>
+        // )
+
+        // 3. 條件判斷式方法二： && 邏輯與運算
+        // 場景： 值有可能為 undefined 時
+        return (
+        <div>
+          { 
+            friend && <div>{friend.name + " " + friend.age }</div>
+          }
+        </div>
+        )
+      }
+    }
+
+    // 2. 創建root並且渲染根組件
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />)
+  </script>
+</body>
+
+</html>
