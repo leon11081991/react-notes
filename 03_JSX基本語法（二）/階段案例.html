@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSX</title>
+  <style>
+    .row {
+      display: flex;
+      align-items: center;
+      /* justify-content: center; */
+    }
+
+    .item {
+      padding: 8px 16px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-inline-start: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script src="/lib/react.development.js"></script>
+  <script src="/lib/react-dom.development.js"></script>
+  <script src="/lib/babel.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建根組件
+    class App extends React.Component {
+      constructor() {
+        super()
+
+        this.state = {
+          books: [
+            {
+              name: "算法導論",
+              publishDate: "2006-9",
+              price: 85,
+              count: 2
+            },
+            {
+              name: "UNIX編程藝術",
+              publishDate: "2006-2",
+              price: 59,
+              count: 1
+            },
+            {
+              name: "編程珠璣",
+              publishDate: "2008-10",
+              price: 39,
+              count: 1
+            },
+            {
+              name: "代碼大全",
+              publishDate: "2006-3",
+              price: 128,
+              count: 1
+            }
+          ]
+        }
+
+      }
+
+      addCount = (index) => {
+        console.log("addCount", this, index)
+
+        const newBooks = [... this.state.books];
+        newBooks[index].count += 1
+        this.setState({
+          books: newBooks
+        })
+      }
+
+      minusCount = (index) => {
+        console.log("minusCount", this, index);
+
+        const newBooks = [... this.state.books]
+
+        if(newBooks[index].count>1){
+          newBooks[index].count -= 1
+          this.setState({
+            books: newBooks
+          })
+        }
+      }
+
+      changeCount(index, count){
+        console.log("changeCount", this,index, count);
+
+        const newBooks = [... this.state.books];
+        newBooks[index].count += count;
+        this.setState({
+          books: newBooks
+        })
+      }
+
+      deleteBook = (index) => {
+        console.log("deleteBook", this, index);
+
+        const newBooks = [...this.state.books];
+        newBooks.splice(index, 1);
+        this.setState({
+          books: newBooks
+        })
+      }
+
+      render() {
+        const { books } = this.state
+
+        const totalPrice = books.reduce((preVal, item)=>{
+          return preVal + item.count * item.price
+        }, 0)
+
+        return (
+          <div>
+            <div className="row">
+              <div className="item">書籍名稱</div>
+              <div className="item">出版日期</div>
+              <div className="item">價格</div>
+              <div className="item">購買數量</div>
+              <div className="item">操作</div>
+            </div>
+            <div>
+              {
+                books.map((item, index)=>{
+                  return (
+                    <ul key={item.name} className="row">
+                      <li className="item">{item.name}</li>
+                      <li className="item">{item.publishDate}</li>
+                      <li className="item">{item.price}</li>
+                      <li className="item">
+                        <button 
+                          disabled={item.count <= 1}
+                          onClick={()=>this.changeCount(index, -1)}
+                        >-</button>
+                        {item.count}
+                        <button onClick={()=>this.changeCount(index, 1)}>+</button>
+                      </li>
+                      <li className="item">
+                        <button onClick={()=>this.deleteBook(index)}>移除</button>
+                      </li>
+                    </ul>
+                  )
+                })
+              }
+            </div>
+            <div>
+              總價格： {totalPrice}
+            </div>
+          </div>
+        )
+      }
+    }
+
+    // 2. 創建root並且渲染根組件
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />)
+  </script>
+</body>
+
+</html>
